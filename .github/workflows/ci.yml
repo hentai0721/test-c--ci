@@ -32,7 +32,7 @@ jobs:
       run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -o hentai
 
     - name: Upload-${{ matrix.os }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: ci-${{ matrix.os }}
-          path: hentai/
+      uses: actions/upload-artifact@v4
+      with:
+        name: ci-${{ matrix.os }}
+        path: hentai/
