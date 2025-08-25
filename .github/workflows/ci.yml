@@ -29,10 +29,10 @@ jobs:
       run: dotnet restore
       
     - name: Build-${{ matrix.os }}
-      run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build
+      run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
     - name: Upload-${{ matrix.os }}
       uses: actions/upload-artifact@v4
       with:
         name: ci-${{ matrix.os }}
-        path: build/
+        path: build/${{matrix.env}}
