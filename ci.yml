@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    name: build-${{matrix.os}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        include:
+          - { os: windows-latest, env: win-x64 }
+          - { os: ubuntu-latest, env: linux-x64 }
+          - { os: macOS-latest,  env: osx-arm64 }
+
+    steps:
+    - uses: actions/checkout@v5
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -o hentai
