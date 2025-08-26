@@ -13,11 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x64,arm64]
         include:
           - { os: windows-latest, env: win   }
           - { os: ubuntu-latest,  env: linux }
           - { os: macos-latest,   env: osx   }
+        arch: [x64,arm64]
 
     steps:
     - uses: actions/checkout@v5
