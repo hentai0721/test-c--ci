@@ -8,18 +8,16 @@ on:
 
 jobs:
   build:
-    name: build-${{matrix.os}}
+    name: build-${{matrix.os}}-${{matrix.arch}}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        arch: [x64,arm64]
         include:
-          - { os: windows-latest, env: win-x64    }
-          - { os: windows-latest, env: win-arm64  }
-          - { os: ubuntu-latest,  env: linux-x64  }
-          - { os: ubuntu-latest,  env: linux-arm64}
-          - { os: macos-latest,   env: osx-x64  }
-          - { os: macos-latest,   env: osx-arm64}
+          - { os: windows-latest, env: win   }
+          - { os: ubuntu-latest,  env: linux }
+          - { os: macos-latest,   env: osx   }
 
     steps:
     - uses: actions/checkout@v5
@@ -30,11 +28,11 @@ jobs:
     - name: Install Dependencies
       run: dotnet restore
       
-    - name: Build-${{ matrix.os }}
-      run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
+    - name: Build-${{ matrix.os }}-${{matrix.arch}}
+      run: dotnet publish -c Release -r ${{matrix.env}}-${{matrix.arch}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
-    - name: Upload-${{ matrix.os }}
+    - name: Upload-${{ matrix.os }}-${{matrix.arch}}
       uses: actions/upload-artifact@v4
       with:
-        name: ci-${{ matrix.os }}
-        path: build/${{matrix.env}}
+        name: ci-${{ matrix.os }}-${{matrix.arch}}
+        path: build/${{matrix.env}}-${{matrix.arch}}
