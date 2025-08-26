@@ -25,10 +25,10 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Install Dependencies
-      run: dotnet restore --locked-mode
+      run: dotnet restore
       
     - name: Build-${{ matrix.os }}
-      run: dotnet publish --no-restore -c Release -r ${{matrix.env}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
+      run: dotnet publish -c Release -r ${{matrix.env}} --self-contained true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
     - name: Upload-${{ matrix.os }}
       uses: actions/upload-artifact@v4
