@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x64, arm64]
+        arch: [x64,arm64]
         include:
           - { os: windows-latest, env: win-${{matrix.arch}}   }
           - { os: ubuntu-latest,  env: linux-${{matrix.arch}} }
