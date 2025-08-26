@@ -14,9 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { os: windows-latest, env: win-x64   }
-          - { os: ubuntu-latest,  env: linux-x64 }
-          - { os: macos-latest,   env: osx-arm64 }
+          - { os: windows-latest, env: win-x64    }
+          - { os: windows-latest, env: win-arm64  }
+          - { os: ubuntu-latest,  env: linux-x64  }
+          - { os: ubuntu-latest,  env: linux-arm64}
+          - { os: macos-latest,   env: macos-x64  }
+          - { os: macos-latest,   env: macos-arm64}
 
     steps:
     - uses: actions/checkout@v5
