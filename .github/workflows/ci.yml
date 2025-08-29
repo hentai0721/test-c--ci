@@ -38,4 +38,4 @@ jobs:
       uses: actions/upload-artifact@v4.6.2
       with:
         name: ci-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
-        path: build/${{matrix.env}}
+        path: build/${{matrix.env}}-${{matrix.arch}}
