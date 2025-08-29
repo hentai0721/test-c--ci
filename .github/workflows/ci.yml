@@ -17,7 +17,10 @@ jobs:
       matrix:
         include:
           - { os: windows-latest, env: win-x64 }
+          - { os: windows-latest, env: win-arm64 }
           - { os: ubuntu-latest,  env: linux-x64 }
+          - { os: ubuntu-latest,  env: linux-arm64 }
+          - { os: macos-latest,   env: osx-x64 }
           - { os: macos-latest,   env: osx-arm64 }
 
     steps:
