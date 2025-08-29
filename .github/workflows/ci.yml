@@ -10,13 +10,13 @@ on:
 
 jobs:
   build:
-    name: build-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
-    runs-on: ${{matrix.os}}
+    name: build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest,ubuntu-latest,ubuntu-24.04-arm,macos-latest]
-        arch: [x64,arm64]
+        os: [windows-latest, ubuntu-latest, ubuntu-24.04-arm, macos-latest]
+        arch: [x64, arm64]
         exclude:
           - { os: ubuntu-latest,    arch: arm64 }
           - { os: ubuntu-24.04-arm, arch: x64   }
@@ -35,11 +35,11 @@ jobs:
     - name: Install Dependencies
       run: dotnet restore
       
-    - name: Build-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
-      run: dotnet publish -c Release -r ${{matrix.env}}-${{matrix.arch}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}-${{matrix.arch}}
+    - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
+      run: dotnet publish --no-restore -c Release -r ${{ matrix.env }}-${{ matrix.arch }} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
 
-    - name: Upload-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
+    - name: Upload-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       uses: actions/upload-artifact@v4.6.2
       with:
-        name: build-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
-        path: build/${{matrix.env}}-${{matrix.arch}}
+        name: build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
+        path: build/${{ matrix.env }}-${{ matrix.arch }}
