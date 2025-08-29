@@ -15,13 +15,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        arch: [x64,arm64]
         include:
-          - { os: windows-latest, env: win-x64 }
-          - { os: windows-latest, env: win-arm64 }
-          - { os: ubuntu-latest,  env: linux-x64 }
-          - { os: ubuntu-latest,  env: linux-arm64 }
-          - { os: macos-latest,   env: osx-x64 }
-          - { os: macos-latest,   env: osx-arm64 }
+          - { os: windows-latest, env: win }
+          - { os: ubuntu-latest,  env: linux }
+          - { os: macos-latest,   env: osx }
 
     steps:
     - uses: actions/checkout@v5
@@ -33,7 +31,7 @@ jobs:
       run: dotnet restore
       
     - name: Build-${{matrix.os}}-${{matrix.env}}
-      run: dotnet publish -c Release -r ${{matrix.env}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
+      run: dotnet publish -c Release -r ${{matrix.env}}-${{matrix.arch}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
     - name: Upload-${{matrix.os}}-${{matrix.env}}
       uses: actions/upload-artifact@v4.6.2
