@@ -13,11 +13,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        archx: [x64, arm64]
+        arch: [x64, arm64]
         include:
-          - { os: windows-latest, env: win, arch: ${{matrix.archx}}}
-          - { os: ubuntu-latest,  env: linux, arch: ${{matrix.archx}}}
-          - { os: macos-latest,   env: osx, arch: ${{matrix.archx}}}
+          - { os: windows-latest, env: win}
+          - { os: ubuntu-latest,  env: linux}
+          - { os: macos-latest,   env: osx}
 
     steps:
     - uses: actions/checkout@v5
