@@ -33,7 +33,7 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Install Dependencies
-      run: dotnet restore
+      run: dotnet restore --use-lock-file 
       
     - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       run: dotnet publish --no-restore -c Release -r ${{ matrix.env }}-${{ matrix.arch }} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
