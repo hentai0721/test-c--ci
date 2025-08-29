@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: build-${{matrix.os}}-${{matrix.arch}}
+    name: build-${{matrix.os}}-${{matrix.env}}
     runs-on: ${{matrix.os}}
     strategy:
       fail-fast: false
@@ -29,10 +29,10 @@ jobs:
     - name: Install Dependencies
       run: dotnet restore --locked-mode
       
-    - name: Build-${{matrix.os}}-${{matrix.arch}}
+    - name: Build-${{matrix.os}}-${{matrix.env}}
       run: dotnet publish --no-restore -c Release -r ${{matrix.env}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
-    - name: Upload-${{matrix.os}}-${{matrix.arch}}
+    - name: Upload-${{matrix.os}}-${{matrix.env}}
       uses: actions/upload-artifact@v4.6.2
       with:
         name: ci-${{matrix.os}}-${{matrix.env}}
