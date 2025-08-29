@@ -16,9 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - arch:
-            x64
-            arm64
+          - arch: x64
+          - arch: arm64
           - { os: windows-latest, env: win-${{matrix.arch}}}
           - { os: ubuntu-latest,  env: linux-${{matrix.arch}}}
           - { os: macos-latest,   env: osx-${{matrix.arch}}}
