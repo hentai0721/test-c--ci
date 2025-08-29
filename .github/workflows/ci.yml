@@ -13,15 +13,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arch: [x64, arm64]
+        archx: [x64, arm64]
         include:
-          - { os: windows-latest, env: win   }
-          - { os: ubuntu-latest,  env: linux }
-          - { os: macos-latest,   env: osx   }
+          - { os: windows-latest, env: win, arch: ${{matrix.archx}}}
+          - { os: ubuntu-latest,  env: linux, arch: ${{matrix.archx}}}
+          - { os: macos-latest,   env: osx, arch: ${{matrix.archx}}}
 
     steps:
     - uses: actions/checkout@v5
-    - uses: actions/setup-dotnet@v4
+    - uses: actions/setup-dotnet@v4.3.1
       with:
         dotnet-version: 10.0.x
 
@@ -32,7 +32,7 @@ jobs:
       run: dotnet publish --no-restore -c Release -r ${{matrix.env}}-${{matrix.arch}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}-${{matrix.arch}}
 
     - name: Upload-${{matrix.os}}-${{matrix.arch}}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.6.2
       with:
         name: ci-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
         path: build/${{matrix.env}}
