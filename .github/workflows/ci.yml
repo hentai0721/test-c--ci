@@ -2,9 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - **
   pull_request:
-    branches: [ main ]
+    branches:
+      - **
 
 jobs:
   build:
@@ -15,9 +17,9 @@ jobs:
       matrix:
         arch: [x64, arm64]
         include:
-          - { os: windows-latest, env: win}
-          - { os: ubuntu-latest,  env: linux}
-          - { os: macos-latest,   env: osx}
+          - { os: windows-latest, env: win-${{matrix.arch}}}
+          - { os: ubuntu-latest,  env: linux-${{matrix.arch}}}
+          - { os: macos-latest,   env: osx-${{matrix.arch}}}
 
     steps:
     - uses: actions/checkout@v5
