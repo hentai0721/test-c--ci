@@ -31,10 +31,10 @@ jobs:
       run: dotnet restore --locked-mode
       
     - name: Build-${{matrix.os}}-${{matrix.arch}}
-      run: dotnet publish --no-restore -c Release -r ${{matrix.env}}-${{matrix.arch}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}-${{matrix.arch}}
+      run: dotnet publish --no-restore -c Release -r ${{matrix.env}} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{matrix.env}}
 
     - name: Upload-${{matrix.os}}-${{matrix.arch}}
       uses: actions/upload-artifact@v4.6.2
       with:
-        name: ci-${{matrix.os}}-${{matrix.env}}-${{matrix.arch}}
+        name: ci-${{matrix.os}}-${{matrix.env}}
         path: build/${{matrix.env}}
