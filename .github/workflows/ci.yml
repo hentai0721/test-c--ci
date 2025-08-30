@@ -8,10 +8,15 @@ on:
     branches:
       - '**'
 
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progess: true
+
 jobs:
   build:
     name: build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
@@ -30,13 +35,13 @@ jobs:
     - uses: actions/checkout@v5
     - uses: actions/setup-dotnet@v4.3.1
       with:
-        dotnet-version: 9.0.x
+        dotnet-version: 10.0.x
 
     - name: Install Dependencies
       run: dotnet restore -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishAot=true
       
     - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
-      run: dotnet publish --no-restore --sc -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
+      run: dotnet publish --no-restore -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
 
     - name: Upload-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       uses: actions/upload-artifact@v4.6.2
