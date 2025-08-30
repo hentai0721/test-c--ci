@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TDCCB0iBBto=",
+  "dgSpecHash": "gNLC0PDfEus=",
   "success": true,
   "projectFilePath": "C:\\Users\\henta\\Desktop\\MyProject\\MyProject.csproj",
   "expectedPackageFiles": [
@@ -10,7 +10,6 @@
     "C:\\Users\\henta\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\10.0.0-preview.7.25380.108\\microsoft.netcore.app.runtime.win-x64.10.0.0-preview.7.25380.108.nupkg.sha512",
     "C:\\Users\\henta\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\10.0.0-preview.7.25380.108\\microsoft.windowsdesktop.app.runtime.win-x64.10.0.0-preview.7.25380.108.nupkg.sha512",
     "C:\\Users\\henta\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\10.0.0-preview.7.25380.108\\microsoft.aspnetcore.app.runtime.win-x64.10.0.0-preview.7.25380.108.nupkg.sha512",
-    "C:\\Users\\henta\\.nuget\\packages\\microsoft.netcore.app.runtime.nativeaot.win-x64\\10.0.0-preview.7.25380.108\\microsoft.netcore.app.runtime.nativeaot.win-x64.10.0.0-preview.7.25380.108.nupkg.sha512",
     "C:\\Users\\henta\\.nuget\\packages\\runtime.win-x64.microsoft.dotnet.ilcompiler\\10.0.0-preview.7.25380.108\\runtime.win-x64.microsoft.dotnet.ilcompiler.10.0.0-preview.7.25380.108.nupkg.sha512"
   ],
   "logs": []
