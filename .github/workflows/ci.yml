@@ -41,7 +41,7 @@ jobs:
       run: dotnet restore -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishAot=true -p:SelfContained=true
       
     - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
-      run: dotnet publish --no-restore -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
+      run: dotnet publish --no-restore --sc -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
 
     - name: Upload-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       uses: actions/upload-artifact@v4.6.2
