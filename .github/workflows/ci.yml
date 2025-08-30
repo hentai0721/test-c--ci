@@ -9,7 +9,7 @@ on:
       - '**'
 
 concurrency:
-  group: 0721-${{ github.ref }}
+  group: 0721-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -38,7 +38,7 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Install Dependencies
-      run: dotnet restore --locked-mode -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishAot=true
+      run: dotnet restore -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishAot=true
       
     - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       run: dotnet publish --no-restore --sc -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
