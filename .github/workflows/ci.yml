@@ -32,8 +32,11 @@ jobs:
       with:
         dotnet-version: 10.0.x
 
+    - name: Install Dependencies
+      run: dotnet restore
+      
     - name: Build-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
-      run: dotnet publish -c Release -r ${{ matrix.env }}-${{ matrix.arch }} --sc true -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
+      run: dotnet publish --no-restore --sc -c Release -r ${{ matrix.env }}-${{ matrix.arch }} -p:PublishSingleFile=true -p:PublishAot=true -p:EnableCompressionInSingleFile=true -p:DebugType=none -p:DebugSymbols=false -p:StripSymbols=true -o build/${{ matrix.env }}-${{ matrix.arch }}
 
     - name: Upload-${{ matrix.os }}-${{ matrix.env }}-${{ matrix.arch }}
       uses: actions/upload-artifact@v4.6.2
